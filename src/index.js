@@ -1,32 +1,49 @@
 const dogUrl = 'http://localhost:3000/pups/';
+//const dogBar = document.getElementById('dog-bar');
+//const dogInfo = 
 
 fetch(dogUrl)
 .then((res) => res.json())
-.then((data) => addPupElements(data))
-
+.then((data) => handleDogs(data))   
+//.then(handleDogs);
 //add pups to DogBar
-function addPupElements(pupArray) {
+function handleDogs(dogArray) {
+    dogArray.forEach(dog => {
+        const dogSpan = document.createElement('span');
+        dogSpan.innerText = pup.name;
+        dogBar.append(dogSpan);
+        
+        dogSpan.addEventListener('click', () => {
+            showInfo(dog)
+        });
+    }); 
+}
+function handleDogs(dogArray) {
     const dogBar = document.getElementById('dog-bar');
-    
-    pupArray.forEach(addPups);
+    dogArray.forEach(addPups);
 }
 function addPups(pup) {
     const dogBar = document.getElementById('dog-bar');
-    const pupObj = document.createElement('span');
-    pupObj.innerText = pup.name;
+    const pupSpan = document.createElement('span');
+    pupSpan.innerText = pup.name;
     //pupObj.span = pup;
-    dogBar.append(pupObj);
+    dogBar.append(pupSpan);
     //console.log(pupObj);
-    //pupObj.addEventListener("click", )
-}
-//Show Info/Click Event
-function showInfo(e) {
-    e.preventDefault();
-    const createInfo = document.createElement('dog-info');
-    const info = document.addEventListener("click", (event) => {
-        const pupInfo = document.getElementById("#dog-bar span");
-        console.log(pupInfo);
-
-        
+    //clickHandler creates eventListener for each dogSpan
+    
+    pupSpan.addEventListener('click', e => {
+        console.log(pup);
     })
 }
+//handleDogs();
+function showInfo(pup) {
+    e.preventDefault();
+
+}
+//Show Info/Click Event
+// function showInfo(e) {
+//     e.preventDefault();
+//     const createInfo = document.createElement('dog-info');
+//     const info = document.addEventListener("click", (event) => {
+//         const pupInfo = document.getElementById("#dog-bar span");
+//         console.log(pupInfo);
