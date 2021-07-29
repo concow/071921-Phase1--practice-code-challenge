@@ -1,49 +1,43 @@
-const dogUrl = 'http://localhost:3000/pups/';
-//const dogBar = document.getElementById('dog-bar');
-//const dogInfo = 
+//First add 'defer' to index.html <script>
 
+//Object Properties:
+    //id, name, isGoodDog, image
+
+const dogUrl = "http://localhost:3000/pups"
+const dogBar = document.getElementById('dog-bar');
+const dogInfo = document.getElementById('dog-info');
+
+//STEP 1
 fetch(dogUrl)
-.then((res) => res.json())
-.then((data) => handleDogs(data))   
-//.then(handleDogs);
-//add pups to DogBar
-function handleDogs(dogArray) {
-    dogArray.forEach(dog => {
+    .then((response) => response.json())
+    .then(handleDogs);
+    //.then((data) => (data));
+    //.then((data) => handleDogs(data));
+//STEP 2
+function handleDogs(dogs) {
+    dogs.forEach((dog) => {
         const dogSpan = document.createElement('span');
-        dogSpan.innerText = pup.name;
-        dogBar.append(dogSpan);
-        
+        dogSpan.innerText = dog.name
+        dogBar.append(dogSpan)
+        //console.log(dogSpan);
+//STEP 3 Attach Click Handler on our Dogs when Clicked
         dogSpan.addEventListener('click', () => {
-            showInfo(dog)
+            showDogInfo(dog);
         });
-    }); 
+    });
 }
-function handleDogs(dogArray) {
-    const dogBar = document.getElementById('dog-bar');
-    dogArray.forEach(addPups);
-}
-function addPups(pup) {
-    const dogBar = document.getElementById('dog-bar');
-    const pupSpan = document.createElement('span');
-    pupSpan.innerText = pup.name;
-    //pupObj.span = pup;
-    dogBar.append(pupSpan);
-    //console.log(pupObj);
-    //clickHandler creates eventListener for each dogSpan
-    
-    pupSpan.addEventListener('click', e => {
-        console.log(pup);
-    })
-}
-//handleDogs();
-function showInfo(pup) {
-    e.preventDefault();
 
+function showDogInfo(dog) {
+    //replace elements in properties. template literal we can interpolate
+    dogInfo.innerHTML = `  
+        <img src=${dog.image}>             
+        <h2>${dog.name}</h2>
+        <button>${dog.isGoodDog ? 'Good' : 'Bad'} Dog!</button>`
+        //is dog good ? if yes return good : if no return bad
+    ;
+    //attach eventlistener to our button
+    dogInfo.querySelector('button').addEventListener('click', () => {       //eventlistener inline cb function
+        dog.isGoodDog = !dog.isGoodDog;     //will swap truthy to falsey & vice versa
+        showDogInfo(dog);                   //call here to render change every time event button is clicked
+    });                                     //to only change from 'Good Dog' to 'Bad Dog'
 }
-//Show Info/Click Event
-// function showInfo(e) {
-//     e.preventDefault();
-//     const createInfo = document.createElement('dog-info');
-//     const info = document.addEventListener("click", (event) => {
-//         const pupInfo = document.getElementById("#dog-bar span");
-//         console.log(pupInfo);
